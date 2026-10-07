@@ -3,22 +3,29 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#faf8fc">
+  <meta name="theme-color" content="#fbf9ff">
   <meta name="description" content="Собери вещество из ионов-пазлов. Тренажёр MoleMix по формулам и диссоциации.">
   <title>Ионы-пазлы · MoleMix</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='2' y='2' width='28' height='28' rx='7' fill='%2351336b'/%3E%3Cpath d='M16 4Q9 10 16 16Q23 22 16 28' fill='none' stroke='%23f3cbb5' stroke-width='3'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=2">
   <script defer src="chemistry.js"></script>
   <script defer src="puzzle.js"></script>
-  <script defer src="app.js"></script>
+  <script defer src="app.js?v=2"></script>
 </head>
 <body>
   <main>
     <header class="topbar">
-      <a href="https://t.me/molemix_chem" target="_blank" rel="noopener noreferrer" aria-label="Telegram MoleMix"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 11 17-7-4 16-6-5-3 3 .5-5.5L17 7l-8 5-6-1Z" fill="currentColor"/></svg></a>
-      <span class="brand">MoleMix</span>
+      <a class="telegram-link" href="https://t.me/molemix_chem" target="_blank" rel="noopener noreferrer" aria-label="Telegram MoleMix"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.6 3.1 18.4 20c-.2 1.2-.9 1.5-1.9.9l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.4-5 9.1-8.2c.4-.4-.1-.6-.6-.3L5.9 13.7 1.1 12.2c-1-.3-1.1-1 .2-1.5L20 3.5c.9-.3 1.7.2 1.6-.4Z" fill="currentColor"/></svg></a>
+      <img class="logo" src="logo.png" alt="MoleMix" width="72" height="72">
     </header>
-    <section id="exercise">
+    <section id="start" class="start-panel" aria-labelledby="start-title">
+      <div class="start-content">
+        <p class="eyebrow">Тренажёр</p>
+        <h1 id="start-title">Ионы-пазлы</h1>
+        <button type="button" id="start-button" class="primary">Начать</button>
+      </div>
+    </section>
+    <section id="exercise" hidden>
       <div class="task-heading"><h1 id="task-title">Собери сульфат натрия</h1><span id="task-number">1 / 15</span></div>
       <p class="instruction">Перетащи ионы на поле и соедини детали в одно вещество. Подбирай ионы по названию, а их количество — по форме пазлов.</p>
       <div id="bank" class="bank" aria-label="Банк ионов: девять катионов и девять анионов"></div>

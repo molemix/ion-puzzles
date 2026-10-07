@@ -94,6 +94,7 @@
     return null;
   }
   function addIon(ionId,position){
+    if($('exercise').hidden)throw new Error('Сначала нажми «Начать».');
     if(locked)throw new Error('Задание уже выполнено.');
     if(!bankIons.some(i=>i.id===ionId))throw new Error('Этого иона нет в текущем банке.');
     let p={id:'p'+nextId++,ion:ionId,x:0,y:0};
@@ -185,6 +186,7 @@
     }
   }
   function check(){
+    if($('exercise').hidden&&taskIndex<C.tasks.length)return {status:'not_started'};
     if(taskIndex>=C.tasks.length)return {status:'completed'};
     if(drag)return {status:'dragging'};
     const result=P.inspect(pieces,task());
@@ -199,6 +201,12 @@
     }
     return result;
   }
+  function startExercise(){
+    if(!$('exercise').hidden)return;
+    $('start').hidden=true;$('finish').hidden=true;$('exercise').hidden=false;loadTask();
+    bank.querySelector('button')?.focus({preventScroll:true});
+  }
+  $('start-button').addEventListener('click',startExercise);
   $('check').addEventListener('click',check);
   $('remove').addEventListener('click',removeSelected);
   $('detach').addEventListener('click',detachSelected);
@@ -234,12 +242,14 @@
   const context=document.modelContext;
   if(context?.registerTool){
     const lifecycle=new AbortController();
-    const state=()=>({task:taskIndex<C.tasks.length?task().name:null,index:Math.min(taskIndex+1,C.tasks.length),finished:taskIndex>=C.tasks.length,locked,bank:bankIons.map(i=>i.id),pieces:pieces.map(p=>({...p}))});
+    const state=()=>({task:taskIndex<C.tasks.length?task().name:null,index:Math.min(taskIndex+1,C.tasks.length),started:$('start').hidden,finished:taskIndex>=C.tasks.length,locked,bank:bankIons.map(i=>i.id),pieces:pieces.map(p=>({...p}))});
     const definitions=[
       {name:'get_ion_puzzle_state',description:'Read the current exercise, available ions and placed pieces.',inputSchema:{type:'object',properties:{},additionalProperties:false},annotations:{readOnlyHint:true},execute:state},
+      {name:'start_ion_puzzle',description:'Open the exercise from the start screen, using the same action as the Start button.',inputSchema:{type:'object',properties:{},additionalProperties:false},annotations:{readOnlyHint:false},execute:()=>{if(taskIndex>=C.tasks.length)throw new Error('Все задания уже выполнены.');startExercise();return state();}},
       {name:'add_ion_puzzle_pieces',description:'Place copies of available ions on the field. Does not check the answer.',inputSchema:{type:'object',properties:{ions:{type:'array',items:{type:'string'},minItems:1,maxItems:12}},required:['ions'],additionalProperties:false},annotations:{readOnlyHint:false},execute:input=>{
         if(!input||!Array.isArray(input.ions)||input.ions.length<1||input.ions.length>12||input.ions.some(id=>!bankIons.some(i=>i.id===id)))throw new Error('Укажи от 1 до 12 ионов из текущего банка.');
         if(locked)throw new Error('Задание уже выполнено.');
+        if($('exercise').hidden)throw new Error('Сначала нажми «Начать».');
         const added=[];for(const id of input.ions){const p=addIon(id);if(p)added.push(p.id);}return {added,state:state()};
       }},
       {name:'check_ion_puzzle',description:'Check the current connected puzzle and display the result. A correct answer completes and locks the exercise.',inputSchema:{type:'object',properties:{},additionalProperties:false},annotations:{readOnlyHint:false},execute:check}
