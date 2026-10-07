@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#faf8fc">
+  <meta name="description" content="Собери вещество из ионов-пазлов. Тренажёр MoleMix по формулам и диссоциации.">
+  <title>Ионы-пазлы · MoleMix</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='2' y='2' width='28' height='28' rx='7' fill='%2351336b'/%3E%3Cpath d='M16 4Q9 10 16 16Q23 22 16 28' fill='none' stroke='%23f3cbb5' stroke-width='3'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="chemistry.js"></script>
+  <script defer src="puzzle.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <main>
+    <header class="topbar">
+      <a href="https://t.me/molemix_chem" target="_blank" rel="noopener noreferrer" aria-label="Telegram MoleMix"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 11 17-7-4 16-6-5-3 3 .5-5.5L17 7l-8 5-6-1Z" fill="currentColor"/></svg></a>
+      <span class="brand">MoleMix</span>
+    </header>
+    <section id="exercise">
+      <div class="task-heading"><h1 id="task-title">Собери сульфат натрия</h1><span id="task-number">1 / 15</span></div>
+      <p class="instruction">Перетащи ионы на поле и соедини детали в одно вещество. Подбирай ионы по названию, а их количество — по форме пазлов.</p>
+      <div id="bank" class="bank" aria-label="Банк ионов: девять катионов и девять анионов"></div>
+      <div id="board" class="board" aria-label="Поле соединения ионов">
+        <span id="board-empty">Место для соединения</span>
+      </div>
+      <div class="piece-tools" id="piece-tools" hidden>
+        <span id="selected-name"></span>
+        <button type="button" id="detach">Отсоединить</button>
+        <button type="button" id="remove">Убрать</button>
+      </div>
+      <div class="actions"><button type="button" id="check" class="primary">Проверить</button><button type="button" id="next" class="primary" hidden>Дальше</button></div>
+      <div id="feedback" class="feedback" aria-live="polite" aria-atomic="true" hidden></div>
+    </section>
+    <section id="finish" hidden>
+      <h1>Все вещества собраны!</h1>
+      <p>15 из 15</p>
+      <button type="button" id="restart" class="primary">Начать заново</button>
+    </section>
+  </main>
+  <noscript>Чтобы собирать пазлы, включи JavaScript в браузере.</noscript>
+</body>
+</html>

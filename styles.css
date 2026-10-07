@@ -1,0 +1,53 @@
+:root{--paper:#faf8fc;--ink:#392447;--muted:#786882;--line:#e3d9e9;--purple:#563570;--cation:#f3cbb5;--anion:#d5c1ee;--success:#226840;--error:#a73447}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{font-family:Arial,Helvetica,sans-serif;color:var(--ink);background:var(--paper);font-size:16px}
+body{margin:0}
+main{max-width:1000px;margin:auto;padding:16px 24px 28px}
+button,a{-webkit-tap-highlight-color:transparent}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,a:focus-visible{outline:3px solid #9567b6;outline-offset:4px}
+.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.topbar a{width:40px;height:40px;display:flex;align-items:center;justify-content:center;color:var(--purple)}
+.topbar svg{width:24px;height:24px}
+.brand{font-size:17px;font-weight:700;letter-spacing:.02em}
+.task-heading{display:flex;align-items:center;justify-content:space-between;gap:16px}
+h1{font-size:clamp(22px,3vw,30px);line-height:1.25;font-weight:600;margin:0}
+#task-number{flex-shrink:0;font-size:14px;color:var(--muted)}
+.instruction{font-size:16px;line-height:1.45;margin:12px 0 20px;max-width:780px;color:var(--muted)}
+.bank{display:grid;grid-template-columns:repeat(9,minmax(0,1fr));align-items:center;gap:12px 6px;margin-bottom:18px;padding:8px 4px;max-height:264px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:#c6b0d6 transparent}
+.ion{border:0;padding:0;background:transparent;touch-action:none;user-select:none;display:flex;align-items:center;justify-content:center;cursor:grab;min-height:44px;transition:transform .12s}
+.ion:hover{transform:translateY(-2px)}
+.ion:active{cursor:grabbing}
+.ion svg{width:100%;max-width:110px;height:auto;overflow:visible;pointer-events:none}
+.puzzle-path{stroke:#634d74;stroke-width:1;stroke-linejoin:round}
+.puzzle-label{fill:var(--ink);font-family:Arial,Helvetica,sans-serif;font-size:23px;font-weight:500}
+.board{position:relative;height:320px;background:#f0eaf5;border:1px solid var(--line);border-radius:12px;overflow:hidden;isolation:isolate;touch-action:pan-y}
+#board-empty{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#8b7a96;font-size:16px;pointer-events:none}
+.piece{position:absolute;border:0;padding:0;background:transparent;touch-action:none;cursor:grab;user-select:none;z-index:2;transition:left .14s,top .14s}
+.piece svg{width:100%;height:100%;overflow:visible;pointer-events:none}
+.piece[aria-pressed=true] .puzzle-path{stroke:#422755;stroke-width:2.3}
+.piece.dragging{z-index:5;transition:none;cursor:grabbing}
+.board.correct .puzzle-path{stroke:var(--success);stroke-width:2}
+.board.correct .piece{cursor:default}
+.board.wrong .puzzle-path{stroke:var(--error);stroke-width:2}
+.drag-ghost{position:fixed;pointer-events:none;z-index:1000;opacity:.9;filter:drop-shadow(0 4px 6px #39244730)}
+.drag-ghost svg{width:100%;height:100%;overflow:visible}
+.piece-tools{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:8px 14px;margin-top:10px;min-height:40px;font-size:14px}
+.piece-tools button{border:0;background:transparent;text-decoration:underline;text-underline-offset:3px;min-height:40px;padding:6px 4px}
+.actions{display:flex;justify-content:center;margin-top:16px}
+.primary{border:0;border-radius:10px;background:var(--purple);color:white;padding:12px 30px;min-height:46px;font-size:16px}
+.primary:disabled{opacity:.5;cursor:default}
+.feedback{margin:18px auto 0;text-align:center;font-size:16px;line-height:1.6;max-width:720px}
+.feedback p{margin:4px 0}
+.feedback .status{font-weight:700;color:var(--error)}
+.feedback.correct .status{color:var(--success)}
+.feedback .equation{font-size:20px;overflow-wrap:anywhere;line-height:1.7}
+sub,sup{font-size:.7em;line-height:0;position:relative;vertical-align:baseline}
+sub{bottom:-.25em}sup{top:-.55em}
+#finish{text-align:center;padding:70px 0}
+#finish p{margin:18px 0 28px;color:var(--muted)}
+noscript{display:block;padding:20px;text-align:center}
+@media(max-width:760px){main{padding:12px 18px 24px}.bank{grid-template-columns:repeat(6,minmax(0,1fr));max-height:232px}.topbar{margin-bottom:12px}}
+@media(max-width:480px){main{padding:10px 12px 22px}.bank{grid-template-columns:repeat(3,minmax(0,1fr));max-height:210px;gap:12px 10px;margin-bottom:14px}.instruction{font-size:14px;line-height:1.45;margin-bottom:12px}.board{height:310px}.task-heading{gap:10px}h1{font-size:23px}.feedback .equation{font-size:18px}.topbar{margin-bottom:8px}}
+@media(prefers-reduced-motion:reduce){.piece,.ion{transition:none}}
